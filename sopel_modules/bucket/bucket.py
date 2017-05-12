@@ -249,6 +249,17 @@ def save_quote(bot, trigger):
     bot.say("Sorry, I don't remember what %s said about %s" % (quotee, word))
 
 
+@rule('$nick' 'random quote')
+def random_quote(bot, trigger):
+    ''' Called when someone wants a random quote '''
+    DBSession = sessionmaker(bind=bot.memory['engine'])
+    session = DBSession()
+    res = session.query(BucketFacts).order_by(random()).limit(1).one()
+    if res:
+        bot.say(res.tidbit)
+    return
+
+
 @rule('(.*)')
 @priority('medium')
 def remember(bot, trigger):
