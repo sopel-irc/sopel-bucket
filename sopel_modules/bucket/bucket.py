@@ -162,6 +162,8 @@ def add_fact(bot, trigger, fact, tidbit):
             # bot.debug('bucket', 'IntegrityError in inventory code', 'warning')
             # bot.debug('bucket', str(e), 'warning')
             raise
+        finally:
+            session.close()
     except:
         raise
     finally:
