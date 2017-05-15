@@ -116,16 +116,16 @@ def setup(bot):
     db_user = bot.config.bucket.db_user
     db_pass = bot.config.bucket.db_pass
     db_name = bot.config.bucket.db_name
-    
+
     engine = create_engine('mysql://%s:%s@%s/%s?charset=utf8mb4' % (db_user, db_pass, db_host, db_name), encoding='utf8')
-    
+
     # Catch any errors connecting to MySQL
     try:
         conn = engine.connect()
     except OperationalError:
         print("OperationalError: Unable to connect to MySQL database.")
         raise
-    
+
     # Create MySQL tables
     Base.metadata.create_all(engine)
 
@@ -173,7 +173,6 @@ def add_fact(bot, trigger, fact, tidbit):
     finally:
         session.close()
     bot.memory['last_teach'][trigger.sender] = [fact, tidbit, trigger.nick]
-    #bot.say("Okay, " + trigger.nick)
     return True
 
 
