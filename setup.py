@@ -40,13 +40,4 @@ setup(
     tests_require=dev_requirements,
     test_suite='tests',
     license='Eiffel Forum License, version 2',
-    extras_require={
-        'develop': [
-            'codeclimate-test-reporter',
-            'pycodestyle',
-            'pytest',
-            'pytest-cov',
-            'mock'
-        ]
-    }
 )
