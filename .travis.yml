@@ -6,3 +6,7 @@ script:
   # - py.test --cov=idlerpg_site_flask
   # - codeclimate-test-reporter
   - pycodestyle --show-source --ignore=E501,E402  ./
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y libenchant-dev
+
