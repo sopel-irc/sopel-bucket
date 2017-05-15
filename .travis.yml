@@ -1,12 +1,12 @@
 language: python
 python:
   - '3.5'
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y libenchant-dev
 install: "pip install -e ."
 script:
   # - py.test --cov=idlerpg_site_flask
   # - codeclimate-test-reporter
   - pycodestyle --show-source --ignore=E501,E402  ./
-before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install -y libenchant-dev
 
