@@ -10,7 +10,7 @@ from sqlalchemy import create_engine
 from sqlalchemy import Column, Integer, String, Text
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.sql.functions import random
 from time import time
 
@@ -46,8 +46,7 @@ class Inventory():
         dropped = False
         item = item.strip()
         if item.lower() not in [x.lower() for x in self.available_items]:
-            DBSession = sessionmaker(bind=bot.memory['engine'])
-            session = DBSession()
+            session = bot.memory['session']
             try:
                 new_item = BucketItems(channel=channel, what=item, user=user)
                 session.add(new_item)
@@ -146,14 +145,19 @@ def setup(bot):
     # Populate the bot's inventory
     bot.memory['inventory'].populate(bot)
 
+    # Set up a session for database interaction
+    Session = scoped_session(sessionmaker())
+    Session.configure(bind=engine)
+    bot.memory['session'] = Session
+
+
 def remove_punctuation(string):
     return re.sub("[,\.\!\?\;\:]", '', string)
 
 
 def add_fact(bot, trigger, fact, tidbit):
     try:
-        DBSession = sessionmaker(bind=bot.memory['engine'])
-        session = DBSession()
+        session = bot.memory['session']
         try:
             new_item = BucketFacts(fact=fact, tidbit=tidbit)
             session.add(new_item)
