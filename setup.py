@@ -41,7 +41,7 @@ setup(
     test_suite='tests',
     license='Eiffel Forum License, version 2',
     extras_require={
-        'dev': [
+        'develop': [
             'codeclimate-test-reporter',
             'pycodestyle',
             'pytest',
