@@ -1,0 +1,8 @@
+language: python
+python:
+  - '3.5'
+install: "pip install -e ."
+script:
+  # - py.test --cov=idlerpg_site_flask
+  # - codeclimate-test-reporter
+  - pycodestyle --show-source --ignore=E501,E402  ./
