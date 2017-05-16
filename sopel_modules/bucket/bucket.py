@@ -207,7 +207,7 @@ def get_inventory(bot, trigger):
     inventory = bot.memory['inventory']
     if len(inventory.current_items) == 0:
         return bot.action('is carrying nothing')
-    readable_item_list = ', '.join(inventory.current_items)
+    readable_item_list = '\x00, '.join(inventory.current_items)
     bot.action('is carrying ' + readable_item_list)
 
 
