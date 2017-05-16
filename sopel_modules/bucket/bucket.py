@@ -71,6 +71,7 @@ class Inventory():
 
         session = bot.memory['session']
         res = session.query(BucketItems.what).order_by(random()).limit(bot.config.bucket.inv_size).all()
+        session.close()
         for item in res:
             self.current_items.append(item[0])
         return
@@ -253,6 +254,7 @@ def random_quote(bot, trigger):
     ''' Called when someone wants a random quote '''
     session = bot.memory['session']
     res = session.query(BucketFacts).order_by(random()).limit(1).one()
+    session.close()
     if res:
         bot.say(res.tidbit)
     return
