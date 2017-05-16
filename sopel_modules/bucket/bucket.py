@@ -69,8 +69,7 @@ class Inventory():
         ''' Clears the inventory and fill it with random items '''
         self.current_items.clear()
 
-        DBSession = sessionmaker(bind=bot.memory['engine'])
-        session = DBSession()
+        session = bot.memory['session']
         res = session.query(BucketItems.what).order_by(random()).limit(bot.config.bucket.inv_size).all()
         for item in res:
             self.current_items.append(item[0])
@@ -257,8 +256,7 @@ def save_quote(bot, trigger):
 @rule('$nick' 'random quote')
 def random_quote(bot, trigger):
     ''' Called when someone wants a random quote '''
-    DBSession = sessionmaker(bind=bot.memory['engine'])
-    session = DBSession()
+    session = bot.memory['session']
     res = session.query(BucketFacts).order_by(random()).limit(1).one()
     if res:
         bot.say(res.tidbit)
