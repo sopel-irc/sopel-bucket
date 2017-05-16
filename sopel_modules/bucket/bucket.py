@@ -61,7 +61,7 @@ class Inventory():
         if item in self.current_items:
             return '%ERROR% duplicate item %ERROR%'
         if len(self.current_items) >= int(bot.config.bucket.inv_size):
-            dropped = True
+            dropped = self.current_items.pop()
         self.current_items.appendleft(item)
         return dropped
 
