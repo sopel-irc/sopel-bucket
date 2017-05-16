@@ -200,11 +200,6 @@ def inv_give(bot, trigger):
     return
 
 
-@module.commands('helloworld')
-def hello_world(bot, trigger):
-    bot.say('Hello, world!')
-
-
 @rule('$nick' 'inventory')
 @priority('medium')
 def get_inventory(bot, trigger):
