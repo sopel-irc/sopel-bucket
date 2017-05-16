@@ -142,13 +142,13 @@ def setup(bot):
     if not bot.memory.contains('engine'):
         bot.memory['engine'] = engine
 
-    # Populate the bot's inventory
-    bot.memory['inventory'].populate(bot)
-
     # Set up a session for database interaction
     Session = scoped_session(sessionmaker())
     Session.configure(bind=engine)
     bot.memory['session'] = Session
+
+    # Populate the bot's inventory
+    bot.memory['inventory'].populate(bot)
 
 
 def remove_punctuation(string):
