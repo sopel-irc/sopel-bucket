@@ -117,7 +117,7 @@ def setup(bot):
     db_pass = bot.config.bucket.db_pass
     db_name = bot.config.bucket.db_name
 
-    engine = create_engine('mysql://%s:%s@%s/%s?charset=utf8mb4' % (db_user, db_pass, db_host, db_name), encoding='utf8')
+    engine = create_engine('mysql://%s:%s@%s/%s?charset=utf8mb4' % (db_user, db_pass, db_host, db_name), encoding='utf8', pool_recycle=3600)
 
     # Catch any errors connecting to MySQL
     try:
