@@ -1,19 +1,19 @@
 # coding=utf-8
 import re
 from collections import deque
-from random import randint
-from sopel import module
-from sopel.tools import Ddict
+from random import seed
+from time import time
+
 from sopel.config.types import StaticSection, ValidatedAttribute
-from sopel.module import commands, rule, priority, thread
-from sqlalchemy import create_engine, event, exc
+from sopel.module import rule, priority
+from sopel.tools import Ddict
 from sqlalchemy import Column, Integer, String, Text
+from sqlalchemy import create_engine
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.pool import Pool
 from sqlalchemy.sql.functions import random
-from time import time
 
 
 # Define a few global variables for database interaction
@@ -135,17 +135,20 @@ def setup(bot):
     db_pass = bot.config.bucket.db_pass
     db_name = bot.config.bucket.db_name
 
-    engine = create_engine('mysql://%s:%s@%s/%s?charset=utf8mb4' % (db_user, db_pass, db_host, db_name), encoding='utf8', pool_recycle=3600)
+    engine = create_engine('mysql://%s:%s@%s/%s?charset=utf8mb4' % (db_user, db_pass, db_host, db_name), encoding='utf8')
 
     # Catch any errors connecting to MySQL
     try:
-        conn = engine.connect()
+        engine.connect()
     except OperationalError:
         print("OperationalError: Unable to connect to MySQL database.")
         raise
 
     # Create MySQL tables
     Base.metadata.create_all(engine)
+
+    # Initialize our RNG
+    seed()
 
     # Ensure that required variables are in memory
     if not bot.memory.contains('inventory'):
@@ -156,14 +159,11 @@ def setup(bot):
         bot.memory['last_said'] = {}
     if not bot.memory.contains('last_lines'):
         bot.memory['last_lines'] = Ddict(dict)  # For quotes.
-    # Add our sqlalchemy engine object into bot memory so all the functions can access it
-    if not bot.memory.contains('engine'):
-        bot.memory['engine'] = engine
 
     # Set up a session for database interaction
-    Session = scoped_session(sessionmaker())
-    Session.configure(bind=engine)
-    bot.memory['session'] = Session
+    session = scoped_session(sessionmaker())
+    session.configure(bind=engine)
+    bot.memory['session'] = session
 
     # Populate the bot's inventory
     bot.memory['inventory'].populate(bot)
@@ -198,7 +198,6 @@ def add_fact(bot, trigger, fact, tidbit):
 def inv_give(bot, trigger):
     ''' Called when someone gives us an item '''
     inventory = bot.memory['inventory']
-    groups = len(trigger.groups())
     item = (trigger.group(2))
 
     # Check to see if we actually got an item or an empty space
