@@ -141,14 +141,11 @@ def setup(bot):
         bot.memory['last_said'] = {}
     if not bot.memory.contains('last_lines'):
         bot.memory['last_lines'] = Ddict(dict)  # For quotes.
-    # Add our sqlalchemy engine object into bot memory so all the functions can access it
-    if not bot.memory.contains('engine'):
-        bot.memory['engine'] = engine
 
     # Set up a session for database interaction
-    Session = scoped_session(sessionmaker())
-    Session.configure(bind=engine)
-    bot.memory['session'] = Session
+    session = scoped_session(sessionmaker())
+    session.configure(bind=engine)
+    bot.memory['session'] = session
 
     # Populate the bot's inventory
     bot.memory['inventory'].populate(bot)
@@ -183,7 +180,6 @@ def add_fact(bot, trigger, fact, tidbit):
 def inv_give(bot, trigger):
     ''' Called when someone gives us an item '''
     inventory = bot.memory['inventory']
-    groups = len(trigger.groups())
     item = (trigger.group(2))
 
     # Check to see if we actually got an item or an empty space
