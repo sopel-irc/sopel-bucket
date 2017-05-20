@@ -121,7 +121,7 @@ def setup(bot):
 
     # Catch any errors connecting to MySQL
     try:
-        conn = engine.connect()
+        engine.connect()
     except OperationalError:
         print("OperationalError: Unable to connect to MySQL database.")
         raise
