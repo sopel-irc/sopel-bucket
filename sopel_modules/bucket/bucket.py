@@ -6,16 +6,34 @@ from sopel import module
 from sopel.tools import Ddict
 from sopel.config.types import StaticSection, ValidatedAttribute
 from sopel.module import commands, rule, priority, thread
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, event, exc
 from sqlalchemy import Column, Integer, String, Text
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.pool import Pool
 from sqlalchemy.sql.functions import random
 from time import time
 
+
 # Define a few global variables for database interaction
 Base = declarative_base()
+
+
+@event.listens_for(Pool, "checkout")
+def ping_connection(dbapi_connection, connection_record, connection_proxy):
+    cursor = dbapi_connection.cursor()
+    try:
+        cursor.execute("SELECT 1")
+    except:
+        # optional - dispose the whole pool
+        # instead of invalidating one at a time
+        # connection_proxy._pool.dispose()
+
+        # raise DisconnectionError - pool will try
+        # connecting again up to three times before raising.
+        raise exc.DisconnectionError()
+    cursor.close()
 
 
 # Define Bucket Items
