@@ -8,7 +8,7 @@ from sopel.config.types import StaticSection, ValidatedAttribute
 from sopel.module import rule, priority
 from sopel.tools import Ddict
 from sqlalchemy import Column, Integer, String, Text
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, event
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
