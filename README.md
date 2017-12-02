@@ -1,7 +1,6 @@
 [![Build Status](https://travis-ci.org/RustyBower/sopel-bucket.svg?branch=master)](https://travis-ci.org/RustyBower/sopel-bucket)
-[![Code Climate](https://codeclimate.com/github/RustyBower/sopel-bucket/badges/gpa.svg)](https://codeclimate.com/github/RustyBower/sopel-bucket)
-[![Test Coverage](https://codeclimate.com/github/RustyBower/sopel-bucket/badges/coverage.svg)](https://codeclimate.com/github/RustyBower/sopel-bucket/coverage)
-
+[![Maintainability](https://api.codeclimate.com/v1/badges/43154ee379640b3e56a0/maintainability)](https://codeclimate.com/github/RustyBower/sopel-bucket/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/43154ee379640b3e56a0/test_coverage)](https://codeclimate.com/github/RustyBower/sopel-bucket/test_coverage)
 
 # Sopel Bucket
 
