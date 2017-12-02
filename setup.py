@@ -39,5 +39,5 @@ setup(
     install_requires=requirements,
     tests_require=dev_requirements,
     test_suite='tests',
-    license='Eiffel Forum License, version 2',
+    license='MIT License',
 )
