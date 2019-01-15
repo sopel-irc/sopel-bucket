@@ -266,15 +266,23 @@ def save_quote(bot, trigger):
     bot.say("Sorry, I don't remember what %s said about %s" % (quotee, word))
 
 
-@rule('$nick' 'random quote')
+@rule('$nick' 'random (.*)')
 def random_quote(bot, trigger):
+    choice = trigger.group(1)
+    choice = choice.strip()
     ''' Called when someone wants a random quote '''
-    session = bot.memory['session']
-    res = session.query(BucketFacts).order_by(random()).limit(1).one()
-    session.close()
-    if res:
-        bot.say(res.tidbit)
-    return
+    if choice == 'quote':
+        session = bot.memory['session']
+        res = session.query(BucketFacts).order_by(random()).limit(1).one_or_none()
+        session.close()
+        if res:
+            return bot.say(res.tidbit)
+    else:
+        session = bot.memory['session']
+        res = session.query(BucketFacts).filter(BucketFacts.fact == '%s quotes' % choice.strip()).order_by(random()).limit(1).one_or_none()
+        session.close()
+        if res:
+            return bot.say(res.tidbit)
 
 
 @rule('(.*)')
