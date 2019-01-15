@@ -170,7 +170,7 @@ def setup(bot):
 
 
 def remove_punctuation(string):
-    return re.sub("[,\.\!\?\;\:]", '', string)
+    return re.sub(r"[,\.\!\?\;\:]", '', string)
 
 
 def add_fact(bot, trigger, fact, tidbit):
