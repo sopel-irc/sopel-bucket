@@ -27,7 +27,7 @@ with open('dev-requirements.txt') as dev_requirements_file:
 
 setup(
     name='sopel_modules.bucket',
-    version='0.0.3',
+    version='1.0.0',
     description='A working re-implementation of the xkcd bucket bot for Sopel',
     long_description=readme + '\n\n' + history,
     author='Rusty Bower',

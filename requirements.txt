@@ -1,4 +1,4 @@
-mysqlclient
+pymysql
 sopel>=6.0,<7
 sqlalchemy
 # Development requirements
