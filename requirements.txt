@@ -1,5 +1,5 @@
 pymysql
-sopel>=6.0,<7
+sopel>=6.0,<8
 sqlalchemy
 # Development requirements
 codeclimate-test-reporter
