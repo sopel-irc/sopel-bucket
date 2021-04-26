@@ -2,6 +2,8 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/b0ce232ed04c6ff85e64/maintainability)](https://codeclimate.com/github/sopel-irc/sopel-bucket/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/b0ce232ed04c6ff85e64/test_coverage)](https://codeclimate.com/github/sopel-irc/sopel-bucket/test_coverage)
 
+**Maintainer:** [@RustyBower](https://github.com/rustybower)
+
 # Sopel Bucket
 
 Sopel Bucket is a rewritten module from the old Bucket
