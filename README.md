@@ -1,7 +1,5 @@
 [![Python Tests](https://github.com/sopel-irc/sopel-bucket/actions/workflows/python-tests.yml/badge.svg?branch=master)](https://github.com/sopel-irc/sopel-bucket/actions/workflows/python-tests.yml)
 [![PyPI version](https://badge.fury.io/py/sopel-modules.bucket.svg)](https://badge.fury.io/py/sopel-modules.bucket)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/sopel-irc/sopel-bucket.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/sopel-irc/sopel-bucket/alerts/)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/sopel-irc/sopel-bucket.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/sopel-irc/sopel-bucket/context:python)
 
 **Maintainer:** [@RustyBower](https://github.com/rustybower)
 
