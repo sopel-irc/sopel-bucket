@@ -13,7 +13,8 @@ from sopel.tools import Ddict
 from sqlalchemy import Column, Integer, String, Text
 from sqlalchemy import create_engine, event, exc
 from sqlalchemy.exc import OperationalError
-from sqlalchemy.orm import declarative_base, scoped_session, sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.pool import Pool
 from sqlalchemy.sql.functions import random
 

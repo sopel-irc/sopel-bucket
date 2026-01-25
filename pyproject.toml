@@ -31,7 +31,6 @@ classifiers = [
 dependencies = [
     "sopel>=8.0",
     "pymysql",
-    "sqlalchemy>=2.0",
 ]
 
 [project.urls]
