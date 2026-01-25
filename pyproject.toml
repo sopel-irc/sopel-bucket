@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["sopel_bucket", "sopel_bucket.*"]
+namespaces = false
+
+[project]
+name = "sopel-bucket"
+version = "2.0.0"
+description = "A working re-implementation of the xkcd bucket bot for Sopel"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.8"
+authors = [
+    { name = "Rusty Bower", email = "rusty@rustybower.com" },
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Communications :: Chat :: Internet Relay Chat",
+]
+dependencies = [
+    "sopel>=8.0",
+    "pymysql",
+    "sqlalchemy>=2.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/sopel-irc/sopel-bucket"
+"Bug Tracker" = "https://github.com/sopel-irc/sopel-bucket/issues"
+
+[project.entry-points."sopel.plugins"]
+bucket = "sopel_bucket"

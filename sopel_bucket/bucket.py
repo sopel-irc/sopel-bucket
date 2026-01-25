@@ -1,17 +1,19 @@
 # coding=utf-8
+"""sopel-bucket - A working re-implementation of the xkcd bucket bot for Sopel"""
+from __future__ import annotations
+
 import re
 from collections import deque
 from random import seed
 from time import time
 
+from sopel import plugin
 from sopel.config.types import StaticSection, ValidatedAttribute
-from sopel.module import rule, priority
 from sopel.tools import Ddict
 from sqlalchemy import Column, Integer, String, Text
 from sqlalchemy import create_engine, event, exc
 from sqlalchemy.exc import OperationalError
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.orm import declarative_base, scoped_session, sessionmaker
 from sqlalchemy.pool import Pool
 from sqlalchemy.sql.functions import random
 
@@ -135,7 +137,7 @@ def setup(bot):
     db_pass = bot.config.bucket.db_pass
     db_name = bot.config.bucket.db_name
 
-    engine = create_engine('mysql+pymysql://%s:%s@%s/%s?charset=utf8mb4' % (db_user, db_pass, db_host, db_name), encoding='utf8')
+    engine = create_engine(f'mysql+pymysql://{db_user}:{db_pass}@{db_host}/{db_name}?charset=utf8mb4')
 
     # Catch any errors connecting to MySQL
     try:
@@ -194,7 +196,7 @@ def add_fact(bot, trigger, fact, tidbit):
     return True
 
 
-@rule('$nick' '(take|have) (.*)')
+@plugin.rule('$nick' '(take|have) (.*)')
 def inv_give(bot, trigger):
     ''' Called when someone gives us an item '''
     inventory = bot.memory['inventory']
@@ -218,8 +220,8 @@ def inv_give(bot, trigger):
     return
 
 
-@rule('$nick' 'inventory')
-@priority('medium')
+@plugin.rule('$nick' 'inventory')
+@plugin.priority('medium')
 def get_inventory(bot, trigger):
     ''' get a human readable list of the bucket inventory '''
     inventory = bot.memory['inventory']
@@ -229,8 +231,8 @@ def get_inventory(bot, trigger):
     bot.action('is carrying ' + readable_item_list)
 
 
-@rule('$nick' 'you need new things')
-@priority('medium')
+@plugin.rule('$nick' 'you need new things')
+@plugin.priority('medium')
 def inv_populate(bot, trigger):
     # bucket_runtime_data.inhibit_reply = trigger
     inventory = bot.memory['inventory']
@@ -238,8 +240,8 @@ def inv_populate(bot, trigger):
     inventory.populate(bot)
 
 
-@rule('$nick' 'remember (.*?) (.*)')
-@priority('high')
+@plugin.rule('$nick' 'remember (.*?) (.*)')
+@plugin.priority('high')
 def save_quote(bot, trigger):
     """Saves a quote"""
     quotee = trigger.group(1).lower()
@@ -266,7 +268,7 @@ def save_quote(bot, trigger):
     bot.say("Sorry, I don't remember what %s said about %s" % (quotee, word))
 
 
-@rule('$nick' 'random (.*)')
+@plugin.rule('$nick' 'random (.*)')
 def random_quote(bot, trigger):
     choice = trigger.group(1)
     choice = choice.strip()
@@ -285,8 +287,8 @@ def random_quote(bot, trigger):
             return bot.say(res.tidbit)
 
 
-@rule('(.*)')
-@priority('medium')
+@plugin.rule('(.*)')
+@plugin.priority('medium')
 def remember(bot, trigger):
     ''' Remember last 30 lines of each user, to use in the quote function '''
     memory = bot.memory['last_lines']

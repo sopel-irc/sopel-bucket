@@ -1,11 +1,14 @@
 [![Python Tests](https://github.com/sopel-irc/sopel-bucket/actions/workflows/python-tests.yml/badge.svg?branch=master)](https://github.com/sopel-irc/sopel-bucket/actions/workflows/python-tests.yml)
-[![PyPI version](https://badge.fury.io/py/sopel-modules.bucket.svg)](https://badge.fury.io/py/sopel-modules.bucket)
+[![PyPI version](https://badge.fury.io/py/sopel-bucket.svg)](https://badge.fury.io/py/sopel-bucket)
 
 **Maintainer:** [@RustyBower](https://github.com/rustybower)
 
-# Sopel Bucket
+# sopel-bucket
 
-Sopel Bucket is a rewritten module from the old Bucket
+A working re-implementation of the xkcd bucket bot for Sopel.
+
+> **Note:** This package was previously published as `sopel-modules.bucket`.
+> Please update your dependencies to use `sopel-bucket` instead.
 
 # Requirements
 
