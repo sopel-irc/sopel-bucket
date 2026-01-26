@@ -3,13 +3,12 @@
 from __future__ import annotations
 
 import re
-from collections import deque
+from collections import defaultdict, deque
 from random import seed
 from time import time
 
 from sopel import plugin
 from sopel.config.types import StaticSection, ValidatedAttribute
-from sopel.tools import Ddict
 from sqlalchemy import Column, Integer, String, Text
 from sqlalchemy import create_engine, event, exc
 from sqlalchemy.exc import OperationalError
@@ -161,7 +160,7 @@ def setup(bot):
     if not bot.memory.contains('last_said'):
         bot.memory['last_said'] = {}
     if not bot.memory.contains('last_lines'):
-        bot.memory['last_lines'] = Ddict(dict)  # For quotes.
+        bot.memory['last_lines'] = defaultdict(dict)  # For quotes.
 
     # Set up a session for database interaction
     session = scoped_session(sessionmaker())
