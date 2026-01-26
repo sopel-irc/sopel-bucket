@@ -153,13 +153,13 @@ def setup(bot):
     seed()
 
     # Ensure that required variables are in memory
-    if not bot.memory.contains('inventory'):
+    if 'inventory' not in bot.memory:
         bot.memory['inventory'] = Inventory()
-    if not bot.memory.contains('last_teach'):
+    if 'last_teach' not in bot.memory:
         bot.memory['last_teach'] = {}
-    if not bot.memory.contains('last_said'):
+    if 'last_said' not in bot.memory:
         bot.memory['last_said'] = {}
-    if not bot.memory.contains('last_lines'):
+    if 'last_lines' not in bot.memory:
         bot.memory['last_lines'] = defaultdict(dict)  # For quotes.
 
     # Set up a session for database interaction
